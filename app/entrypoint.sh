@@ -10,6 +10,5 @@ chmod +x testgradle.sh
 sh clone.sh ${RAMA} ${REPOSITORIO}
 cd /opt/framework
 cp /opt/testgradle.sh /opt/framework
-cp /opt/report.sh /opt/framework
 sh testgradle.sh ${TAG} ${NAV}
 
