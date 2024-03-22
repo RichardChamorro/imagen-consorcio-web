@@ -2,7 +2,7 @@ FROM ubuntu:22.04
 
 # Instalacion de dependencias
 RUN apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -y openjdk-17-jdk wget unzip gnupg curl jq git inetutils-traceroute mlocate libnet-ssleay-perl libio-socket-ssl-perl 
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y openjdk-17-jdk wget unzip gnupg curl jq git mlocate
 
 #Variables de entorno Java
 ENV JAVA_HOME='/usr/lib/jvm/java-17-openjdk-amd64'
@@ -39,4 +39,4 @@ COPY app /opt
 WORKDIR /opt/
 RUN chmod 777 /opt/
 RUN chmod +x entrypoint.sh
-ENTRYPOINT /bin/bash entrypoint.sh ${RAMA} ${REPOSITORIO} ${TAG} ${NAV} ${B_TOKEN}
+ENTRYPOINT /bin/bash entrypoint.sh ${RAMA} ${REPOSITORIO} ${TAG} ${NAV}
