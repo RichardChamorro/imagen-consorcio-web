@@ -1,10 +1,11 @@
 FROM ubuntu:22.04
 # Instalacion de dependencias
 RUN apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -y openjdk-17-jdk wget unzip gnupg curl git
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y openjdk-17-jdk wget unzip git
+    && chmod 777 /opt/ \
+    && chmod +x entrypoint.sh
 #Variables de entorno Java
-ENV JAVA_HOME='/usr/lib/jvm/java-17-openjdk-amd64'
-ENV PATH=${JAVA_HOME}/bin:${PATH}
+ENV JAVA_HOME='/usr/lib/jvm/java-17-openjdk-amd64' PATH=${JAVA_HOME}/bin:${PATH}
 # Descargar e instalar Gradle
 ENV GRADLE_VERSION=8.4
 RUN wget --no-verbose  "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" \
@@ -13,27 +14,19 @@ RUN wget --no-verbose  "https://services.gradle.org/distributions/gradle-${GRADL
     && wget "https://repo1.maven.org/maven2/org/eclipse/jgit/org.eclipse.jgit/6.7.0.202309050840-r/org.eclipse.jgit-6.7.0.202309050840-r.jar" \
     && mv org.eclipse.jgit-6.7.0.202309050840-r.jar /opt/gradle-${GRADLE_VERSION}/lib/plugins/  \
     && rm /opt/gradle-${GRADLE_VERSION}/lib/plugins/org.eclipse.jgit-5.7.0.202003110725-r.jar \
-    && mv /opt/gradle-${GRADLE_VERSION}/lib/plugins/org.eclipse.jgit-6.7.0.202309050840-r.jar /opt/gradle-${GRADLE_VERSION}/lib/plugins/org.eclipse.jgit-5.7.0.202003110725-r.jar \
-    && wget "https://repo1.maven.org/maven2/org/testng/testng/7.5.1/testng-7.5.1.jar" \
-    && mv testng-7.5.1.jar /opt/gradle-${GRADLE_VERSION}/lib/plugins/ \
-    && rm /opt/gradle-${GRADLE_VERSION}/lib/plugins/testng-6.3.1.jar \
-    && mv /opt/gradle-${GRADLE_VERSION}/lib/plugins/testng-7.5.1.jar /opt/gradle-${GRADLE_VERSION}/lib/plugins/testng-6.3.1.jar
+    && mv /opt/gradle-${GRADLE_VERSION}/lib/plugins/org.eclipse.jgit-6.7.0.202309050840-r.jar /opt/gradle-${GRADLE_VERSION}/lib/plugins/org.eclipse.jgit->
+    && apt-get clean
 # Configuracion variables de entorno de Gradle
-ENV GRADLE_HOME=/opt/gradle-${GRADLE_VERSION}
-ENV PATH=${GRADLE_HOME}/bin:${PATH}
+ENV GRADLE_HOME=/opt/gradle-${GRADLE_VERSION} PATH=${GRADLE_HOME}/bin:${PATH}
 # Instalacion Google Chrome
-RUN wget --no-verbose -O /tmp/chrome.deb https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_114.0.5735.198-1_amd64.deb \
+RUN wget --no-verbose -O /tmp/chrome.deb https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_114.0.5735.198-1_am>
   && apt install -y /tmp/chrome.deb \
-  && rm /tmp/chrome.deb
+  && rm /tmp/chrome.deb \
+  && apt-get clean
 # Instalar Xvfb
 RUN apt-get install -y xvfb
 # Variables de entorno
-ENV RAMA=${RAMA}
-ENV REPOSITORIO=${REPOSITORIO}
-ENV TAG=${TAG}
-ENV NAV=${NAV}
+ENV RAMA=${RAMA} REPOSITORIO=${REPOSITORIO} TAG=${TAG} NAV=${NAV}
 COPY app /opt
 WORKDIR /opt/
-RUN chmod 777 /opt/
-RUN chmod +x entrypoint.sh
 ENTRYPOINT /bin/bash entrypoint.sh ${RAMA} ${REPOSITORIO} ${TAG} ${NAV}
