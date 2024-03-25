@@ -1,9 +1,8 @@
 FROM ubuntu:22.04
 # Instalacion de dependencias
 RUN apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -y openjdk-17-jdk wget unzip git
-    && chmod 777 /opt/ \
-    && chmod +x entrypoint.sh
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y openjdk-17-jdk wget unzip git \
+    && chmod 777 /opt/
 #Variables de entorno Java
 ENV JAVA_HOME='/usr/lib/jvm/java-17-openjdk-amd64' PATH=${JAVA_HOME}/bin:${PATH}
 # Descargar e instalar Gradle
@@ -29,4 +28,5 @@ RUN apt-get install -y xvfb
 ENV RAMA=${RAMA} REPOSITORIO=${REPOSITORIO} TAG=${TAG} NAV=${NAV}
 COPY app /opt
 WORKDIR /opt/
+RUN chmod +x entrypoint.sh
 ENTRYPOINT /bin/bash entrypoint.sh ${RAMA} ${REPOSITORIO} ${TAG} ${NAV}
