@@ -18,7 +18,11 @@ RUN wget --no-verbose "https://services.gradle.org/distributions/gradle-${GRADLE
     && wget "https://repo1.maven.org/maven2/org/eclipse/jgit/org.eclipse.jgit/6.7.0.202309050840-r/org.eclipse.jgit-6.7.0.202309050840-r.jar" \
     && mv org.eclipse.jgit-6.7.0.202309050840-r.jar /opt/gradle-${GRADLE_VERSION}/lib/plugins/  \
     && rm /opt/gradle-${GRADLE_VERSION}/lib/plugins/org.eclipse.jgit-5.7.0.202003110725-r.jar \
-    && mv /opt/gradle-${GRADLE_VERSION}/lib/plugins/org.eclipse.jgit-6.7.0.202309050840-r.jar /opt/gradle-${GRADLE_VERSION}/lib/plugins/org.eclipse.jgit-5.7.0.202003110725-r.jar
+    && mv /opt/gradle-${GRADLE_VERSION}/lib/plugins/org.eclipse.jgit-6.7.0.202309050840-r.jar /opt/gradle-${GRADLE_VERSION}/lib/plugins/org.eclipse.jgit-5.7.0.202003110725-r.jar \
+    && wget "https://repo1.maven.org/maven2/org/testng/testng/7.5.1/testng-7.5.1.jar" \
+    && mv testng-7.5.1.jar /opt/gradle-${GRADLE_VERSION}/lib/plugins/ \
+    && rm /opt/gradle-${GRADLE_VERSION}/lib/plugins/testng-6.3.1.jar \
+    && mv /opt/gradle-${GRADLE_VERSION}/lib/plugins/testng-7.5.1.jar /opt/gradle-${GRADLE_VERSION}/lib/plugins/testng-6.3.1.jar
 # Configuracion variables de entorno de Gradle
 ENV GRADLE_HOME=/opt/gradle-${GRADLE_VERSION} 
 ENV PATH=${GRADLE_HOME}/bin:${PATH}
