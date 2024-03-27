@@ -7,6 +7,7 @@ RUN apt-get update \
     && rm /tmp/chrome.deb \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+    
 #Variables de entorno Java y GRADLE
 ENV JAVA_HOME='/usr/lib/jvm/java-17-openjdk-amd64' 
 ENV PATH=${JAVA_HOME}/bin:${PATH} 
