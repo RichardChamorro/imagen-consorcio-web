@@ -19,7 +19,7 @@ RUN wget --no-verbose "https://services.gradle.org/distributions/gradle-${GRADLE
     && mv org.eclipse.jgit-6.7.0.202309050840-r.jar /opt/gradle-${GRADLE_VERSION}/lib/plugins/  \
     && rm /opt/gradle-${GRADLE_VERSION}/lib/plugins/org.eclipse.jgit-5.7.0.202003110725-r.jar \
     && mv /opt/gradle-${GRADLE_VERSION}/lib/plugins/org.eclipse.jgit-6.7.0.202309050840-r.jar /opt/gradle-${GRADLE_VERSION}/lib/plugins/org.eclipse.jgit-5.7.0.202003110725-r.jar \
-    && wget "https://repo1.maven.org/maven2/io/cucumber-testng/7.15.0/testng-7.15.0.jar" \
+    && wget "https://repo1.maven.org/maven2/io/cucumber/cucumber-testng/7.15.0/cucumber-testng-7.15.0.jar" \
     && mv testng-7.15.0.jar /opt/gradle-${GRADLE_VERSION}/lib/plugins/ \
     && rm /opt/gradle-${GRADLE_VERSION}/lib/plugins/testng-6.3.1.jar \
     && mv /opt/gradle-${GRADLE_VERSION}/lib/plugins/testng-7.15.0.jar /opt/gradle-${GRADLE_VERSION}/lib/plugins/testng-6.3.1.jar
