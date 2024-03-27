@@ -11,7 +11,7 @@ RUN apt-get update \
 #Variables de entorno Java y GRADLE
 ENV JAVA_HOME='/usr/lib/jvm/java-17-openjdk-amd64' 
 ENV PATH=${JAVA_HOME}/bin:${PATH} 
-ENV GRADLE_VERSION=8.4
+ENV GRADLE_VERSION=8.5
 # Descargar e instalar Gradle
 RUN wget --no-verbose "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" \
     && unzip -d /opt gradle-${GRADLE_VERSION}-bin.zip \
